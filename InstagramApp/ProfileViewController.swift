@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class ProfileViewController: UIViewController {
 
@@ -21,7 +22,19 @@ class ProfileViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func onLogoutButton(_ sender: Any) {
+        
+        PFUser.logOutInBackground { (error: Error?) in
+            print("current user: \(PFUser.current())")
+        }
+        
+        //returns to main view controller : "Login"
+        DispatchQueue.main.async(execute: { () -> Void in
+            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginView")
+            self.present(viewController, animated: true, completion: nil)
+        })
+    }
+    
     /*
     // MARK: - Navigation
 
